@@ -26,7 +26,6 @@ import 'package:otel_get_storage/otel_get_storage.dart';
 Future<void> main() async {
   await OTel.initialize(
     serviceName: 'my-app',
-    endpoint: 'http://localhost:4317',
   );
 
   await GetStorage.init('settings');
