@@ -4,8 +4,9 @@ OpenTelemetry instrumentation for
 [`package:get_storage`](https://pub.dev/packages/get_storage).
 
 Wraps GetStorage operations in `CLIENT`-kind spans following the OTel
-DB semantic conventions — `db.system=get_storage`, `db.operation`,
-`db.collection.name`, `db.query.text=<key>`, plus error attributes
+DB semantic conventions — `db.system.name=get_storage`,
+`db.operation.name`, `db.collection.name`, `db.query.text=<key>`,
+plus error attributes
 when an operation throws.
 
 ## Install
@@ -47,8 +48,8 @@ Defaults to `GetStorage`, matching the default container.
 
 | OTel attribute       | Source                              |
 |----------------------|-------------------------------------|
-| `db.system`          | hardcoded `get_storage`             |
-| `db.operation`       | `read` / `write` / `remove` / `erase` |
+| `db.system.name`     | hardcoded `get_storage`             |
+| `db.operation.name`  | `read` / `write` / `remove` / `erase` |
 | `db.collection.name` | the container name                  |
 | `db.query.text`      | the storage key (omitted for erase) |
 | `error.type`         | exception class (on throw)          |

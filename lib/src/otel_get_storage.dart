@@ -17,20 +17,18 @@ Attributes _attrs({
   String? key,
 }) =>
     OTel.attributesFromMap(<String, Object>{
-      Database.dbSystem.key: _dbSystem,
-      Database.dbSystemName.key: _dbSystem,
-      Database.dbOperation.key: operation,
-      Database.dbOperationName.key: operation,
-      Database.dbCollectionName.key: container,
-      if (key != null) Database.dbQueryText.key: key,
+      Db.dbSystemName.key: _dbSystem,
+      Db.dbOperationName.key: operation,
+      Db.dbCollectionName.key: container,
+      if (key != null) Db.dbQueryText.key: key,
     });
 
 /// Sync variant — for `GetStorage.read` which returns immediately.
 ///
 /// Opens a CLIENT-kind span named `get_storage <operation> <container>`
-/// with `db.system=get_storage`, `db.operation`, `db.collection.name`,
-/// and `db.query.text=<key>` (the storage key, treated as the
-/// "query text" for the OTel DB semconv).
+/// with `db.system.name=get_storage`, `db.operation.name`,
+/// `db.collection.name`, and `db.query.text=<key>` (the storage key,
+/// treated as the "query text" for the OTel DB semconv).
 R tracedGetStorageCallSync<R>({
   required String operation,
   required String container,
@@ -49,7 +47,7 @@ R tracedGetStorageCallSync<R>({
     span.addAttributes(
       OTel.attributes([
         OTel.attributeString(
-          ErrorResource.errorType.key,
+          ErrorAttributes.errorType.key,
           e.runtimeType.toString(),
         ),
       ]),
@@ -81,7 +79,7 @@ Future<R> tracedGetStorageCall<R>({
     span.addAttributes(
       OTel.attributes([
         OTel.attributeString(
-          ErrorResource.errorType.key,
+          ErrorAttributes.errorType.key,
           e.runtimeType.toString(),
         ),
       ]),

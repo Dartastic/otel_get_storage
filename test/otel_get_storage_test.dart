@@ -62,8 +62,8 @@ void main() {
       expect(span.name, 'get_storage read GetStorage');
       expect(span.kind, SpanKind.client);
       final attrs = _attrMap(span);
-      expect(attrs['db.system'], 'get_storage');
-      expect(attrs['db.operation'], 'read');
+      expect(attrs['db.system.name'], 'get_storage');
+      expect(attrs['db.operation.name'], 'read');
       expect(attrs['db.collection.name'], 'GetStorage');
       expect(attrs['db.query.text'], 'user.id');
     });
@@ -78,7 +78,7 @@ void main() {
       final span = exporter.spans.single;
       expect(span.name, 'get_storage write settings');
       final attrs = _attrMap(span);
-      expect(attrs['db.operation'], 'write');
+      expect(attrs['db.operation.name'], 'write');
       expect(attrs['db.collection.name'], 'settings');
       expect(attrs['db.query.text'], 'theme');
     });
@@ -90,7 +90,7 @@ void main() {
         invoke: () async {},
       );
       final attrs = _attrMap(exporter.spans.single);
-      expect(attrs['db.operation'], 'erase');
+      expect(attrs['db.operation.name'], 'erase');
       expect(attrs.containsKey('db.query.text'), isFalse);
     });
 
