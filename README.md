@@ -14,7 +14,7 @@ when an operation throws.
 ```yaml
 dependencies:
   get_storage: ^2.1.1
-  otel_get_storage: ^0.1.0
+  otel_get_storage: ^0.2.0
 ```
 
 ## Use
