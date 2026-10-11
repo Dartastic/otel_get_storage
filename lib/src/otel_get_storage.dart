@@ -1,7 +1,7 @@
 // Licensed under the Apache License, Version 2.0
 // Copyright 2025, Mindful Software LLC, All rights reserved.
 
-import 'package:dartastic_opentelemetry/dartastic_opentelemetry.dart';
+import 'package:dartastic_opentelemetry_api/dartastic_opentelemetry_api.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'otel_get_storage_suppression.dart';
@@ -9,14 +9,14 @@ import 'otel_get_storage_suppression.dart';
 const _tracerName = 'otel_get_storage';
 const _dbSystem = 'get_storage';
 
-Tracer _tracer() => OTel.tracerProvider().getTracer(_tracerName);
+APITracer _tracer() => OTelAPI.tracerProvider().getTracer(_tracerName);
 
 Attributes _attrs({
   required String operation,
   required String container,
   String? key,
 }) =>
-    OTel.attributesFromMap(<String, Object>{
+    OTelAPI.attributesFromMap(<String, Object>{
       Db.dbSystemName.key: _dbSystem,
       Db.dbOperationName.key: operation,
       Db.dbCollectionName.key: container,
@@ -45,8 +45,8 @@ R tracedGetStorageCallSync<R>({
     return invoke();
   } catch (e, st) {
     span.addAttributes(
-      OTel.attributes([
-        OTel.attributeString(
+      OTelAPI.attributes([
+        OTelAPI.attributeString(
           ErrorAttributes.errorType.key,
           e.runtimeType.toString(),
         ),
@@ -77,8 +77,8 @@ Future<R> tracedGetStorageCall<R>({
     return await invoke();
   } catch (e, st) {
     span.addAttributes(
-      OTel.attributes([
-        OTel.attributeString(
+      OTelAPI.attributes([
+        OTelAPI.attributeString(
           ErrorAttributes.errorType.key,
           e.runtimeType.toString(),
         ),
